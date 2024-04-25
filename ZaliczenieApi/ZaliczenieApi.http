@@ -1,0 +1,6 @@
+@ZaliczenieApi_HostAddress = http://localhost:5193
+
+GET {{ZaliczenieApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
