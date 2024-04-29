@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<PictureContext>(options => options.UseInMemoryDatabase("Pictures"));
+builder.Services.AddDbContext<PictureContext>(options => options.UseSqlServer("Server=DESKTOP-04K10TK\\SQLEXPRESS001;Database=PictureDB;Trusted_Connection=True;TrustServerCertificate=True"));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

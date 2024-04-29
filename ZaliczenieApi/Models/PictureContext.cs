@@ -8,6 +8,7 @@ namespace ZaliczenieApi.Models
 
         public PictureContext(DbContextOptions<PictureContext> options) : base(options) 
         {
+
         }
     }
 }
