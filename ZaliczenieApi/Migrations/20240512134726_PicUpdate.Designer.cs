@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZaliczenieApi.Models;
 
@@ -10,9 +11,11 @@ using ZaliczenieApi.Models;
 namespace ZaliczenieApi.Migrations
 {
     [DbContext(typeof(PictureContext))]
-    partial class PictureContextModelSnapshot : ModelSnapshot
+    [Migration("20240512134726_PicUpdate")]
+    partial class PicUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,6 +35,10 @@ namespace ZaliczenieApi.Migrations
                     b.Property<byte[]>("ImageData")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImageMimeType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

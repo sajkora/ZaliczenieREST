@@ -11,8 +11,8 @@ using ZaliczenieApi.Models;
 namespace ZaliczenieApi.Migrations
 {
     [DbContext(typeof(PictureContext))]
-    [Migration("20240429164828_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240512143240_pictureupdated")]
+    partial class pictureupdated
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,9 +32,9 @@ namespace ZaliczenieApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Link")
+                    b.Property<byte[]>("ImageData")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

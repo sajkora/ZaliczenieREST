@@ -13,13 +13,8 @@ namespace ZaliczenieApi.Controllers
         public PicturesController(PictureContext context)
         {
             _context = context;
-
-            if (_context.Pictures.Count() == 0)
-            {
-                _context.Pictures.Add(new Picture { Name = "Picture 1", Link="www.pic.com" });
-                _context.SaveChanges();
-            }
         }
+
         [HttpGet]
         public IEnumerable<Picture> GetProducts()
         {
@@ -39,13 +34,32 @@ namespace ZaliczenieApi.Controllers
             return Product;
         }
         [HttpPost]
-        public ActionResult<Picture> PostPicture(Picture picture)
+        [Consumes("multipart/form-data")]
+        public ActionResult<Picture> PostPicture([FromForm] IFormFile imageFile, [FromForm] string name)
         {
-            _context.Pictures.Add(picture);
-            _context.SaveChanges();
+            if (imageFile == null || imageFile.Length == 0)
+            {
+                return BadRequest("No image file uploaded.");
+            }
 
-            return CreatedAtAction(nameof(GetPicture), new { id = picture.Id }, picture);
+            using (var memoryStream = new MemoryStream())
+            {
+                imageFile.CopyTo(memoryStream);
+                byte[] imageData = memoryStream.ToArray();
+
+                var picture = new Picture
+                {
+                    Name = name,
+                    ImageData = imageData
+                };
+
+                _context.Pictures.Add(picture);
+                _context.SaveChanges();
+
+                return CreatedAtAction(nameof(GetPicture), new { id = picture.Id }, picture);
+            }
         }
+
 
         [HttpPut("{id}")]
         public IActionResult PutPicture(int id, Picture picture)
