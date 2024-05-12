@@ -1,0 +1,15 @@
+﻿@page
+@using ZaliczenieApi.Pages
+@model IndexModel
+@{
+    ViewData["Title"] = "Image Gallery";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div id="imageContainer"></div>
+    <div id="imageContainer">
+        @foreach (var imageData in (IEnumerable<string>)ViewData["ImageData"])
+        {
+        <img src="@imageData" alt="Image" width="300" height="200">
+        }
+    </div>
